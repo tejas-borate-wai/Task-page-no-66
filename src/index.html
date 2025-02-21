@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Sidebar width on large screens */
+        #sidebar {
+            width: 270px;
+            height: 100vh;
+        }
+
+        /* Hide sidebar on small screens */
+        @media (max-width: 991px) {
+            #sidebar {
+                display: none;
+            }
+        }
+
+        /* Main content margin for large screens */
+        .main-content {
+            margin-left: 270px;
+        }
+
+        @media (max-width: 991px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .main-content nav {
+                margin-left: -10px !important;
+            }
+
+            .x2 {
+                margin-top: 0px;
+            }
+
+            #mobileSidebar {
+                margin-top: 80px;
+            }
+
+            .x3 {
+                margin-top: -40px;
+            }
+
+            .x4 {
+                margin-top: -40px;
+            }
+
+            .x5-card {
+                margin-top: 40px;
+            }
+
+            .x10 {
+                margin-right: -50px;
+            }
+        }
+
+        .main-content nav {
+            margin-left: -270px;
+        }
+
+        .badge {
+            background-color: #eeadf8;
+            color: #6f00ff;
+        }
+
+        .span_badge:hover {
+            background-color: #e11eff;
+        }
+
+        .delete_button {
+            transition: filter 0.3s ease-in-out;
+        }
+
+        .delete_button img:hover {
+            filter: brightness(50%) sepia(80%) hue-rotate(-10deg) saturate(200%);
+            rotate: 20deg;
+        }
+
+        .pagination_tab ul li {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            border: 1px solid black;
+            text-align: center;
+
+        }
+
+        .pagination_tab ul li a {
+            text-decoration: none;
+            /* margin-top: 200px !important; */
+            color: black;
+
+        }
+
+        .edit_dlt_icon i {
+            font-size: 18px;
+        }
+
+        .card_section {
+            border: 2px solid rgb(168, 168, 168);
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        b {
+            font-size: 13px;
+            font-weight: 700 !important;
+        }
+
+        .skills_card div img {
+            height: 30px;
+            width: 30px;
+        }
+
+        #myCheckbox {
+            transform: scale(1.4) !important;
+        }
+    </style>
+</head>
+
+<body class="" style="background-color: azure;">
+
+    <div class="d-flex">
+
+        <!-- Sidebar (Hidden on small screens) -->
+        <nav id="sidebar" class="bg-light shadow-lg position-fixed d-lg-flex flex-column vh-100 pt-lg-4"
+            style="width: 250px;z-index: 55000;top: 80px;">
+
+            <ul class="nav flex-column px-3">
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#">
+                        <i class="bi bi-grid-1x2 me-2"></i> Dashboard
+                        <!-- <i class="bi bi-chevron-right ms-auto"></i> -->
+                    </a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#" id="teamDropdown">
+                        <i class="bi bi-person me-2"></i> Team Member
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="list-unstyled ms-4 collapse" id="teamDropdownMenu">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person me-2"></i> Team Member
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Certification
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#" id="project_dropdown">
+                        <i class="bi bi-person me-2"></i> Project
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="list-unstyled ms-4 collapse" id="project_dropdownMenu">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person me-2"></i> In Progress
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Upcoming
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Completed
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Archived
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#">
+                        <i class="bi bi-person-badge me-2"></i> Client
+                        <!-- <i class="bi bi-chevron-right ms-auto"></i> -->
+                    </a>
+                </li>
+                <li class="nav-item mt-1">
+                    <a class="nav-link d-flex align-items-center" href="#" id="learning_path_dropdown">
+                        <i class="bi bi-person me-2"></i> Learning Path
+                        <i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul class="list-unstyled ms-4 collapse" id="learning_path_dropdownMenu">
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-person me-2"></i> Learning Path
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Cources
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link d-flex align-items-center" href="#">
+                                <i class="bi bi-award me-2"></i> Skills Sets
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid main-content p-0">
+            <!-- Top Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white shadow position-fixed w-100 x10"
+                style="height: 80px; z-index: 12000;">
+                <div class="container-fluid">
+                    <!-- Sidebar Toggle Button for Small Screens -->
+                    <button class="btn btn-outline-primary d-lg-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+
+                    <div class=" p-3 text-center d-none d-md-none d-lg-block">
+                        <img src="assets/logo.png" alt="Logo" class="" height="50" width="120px">
+                    </div>
+
+                    <div class="row w-100 align-items-center">
+                        <!-- Left Section: Page Title & Breadcrumbs -->
+                        <div class="col-1 col-lg-2 d-none d-md-block"></div>
+                        <div class="col-lg-4 col-md-6 col-12 d-none d-lg-block">
+                            <div class="d-flex flex-column d-none d-md-block" style="margin-left: -100px;">
+                                <h6 class="m-0 fw-bold">In Progress</h6>
+                                <p class="text-muted small m-0">Projects > In Progress
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12 d-block d-lg-none">
+
+                        </div>
+
+                        <!-- Right Section: Icons & User Profile -->
+                        <div class="col-2  d-md-none"></div>
+                        <div class="col-lg-6 col-md-4 col-10 d-flex justify-content-end align-items-center x2">
+                            <div class="x3">
+                                <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+                                    alt="Flag" width="24" height="16" class="me-2">
+                                <span class="me-3">EN(UK)</span>
+                                <i class="bi bi-bell me-3"></i>
+                                <i class="bi bi-gear me-3"></i>
+                            </div>
+
+                            <!-- User Profile -->
+                            <div class="x4">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWoIK1UbwcOWwI6C6_rR6eKWDlOmNWq2w0P7h9RAuW8kqwg6Ku7pWf7blG&s=10"
+                                        alt="Admin" width="36" height="36" class="rounded-circle me-2">
+                                    <div>
+                                        <p class="m-0 fw-bold">Megan Roberts</p>
+                                        <p class="m-0 text-muted small">Admin</p>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="btn border-0" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-arrow-down-circle-fill"></i>
+                                        </button>
+                                        <ul class="dropdown-menu"
+                                            style="margin-left: -130px;border: 2px solid gray;margin-top: 5px;">
+                                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+
+            <!-- Content Area -->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 custom-margin" style="margin-top: 80px;">
+                        <!-- Outer Card Section -->
+                        <div class="card bg-light-subtle mt-lg-4 p-4 p-lg-5">
+
+                            <!-- upper side of card -->
+                            <div class="row d-flex align-items-center m-0 p-0">
+                                <!-- Search Bar -->
+                                <div class="col-12 col-md-6 col-lg-4 mb-3 mb-md-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search Project"
+                                            aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                        <span class="input-group-text m-0 p-0" id="basic-addon2">
+                                            <button class="btn m-0"><i class="bi bi-search"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Status Indicators (Billable, Non-Billable, Partly-Billable) -->
+                                <div class="col-12 col-md-6 col-lg-4 d-flex flex-column flex-md-row align-items-center   mt-0"
+                                    style="font-size: 14px;">
+                                    <p class="m-0"><i class="bi bi-circle-fill text-success"></i> Billable</p>
+                                    <p class="m-0"><i class="bi bi-circle-fill text-danger ms-3"></i> Non-Billable</p>
+                                    <p class="m-0"><i class="bi bi-circle-fill text-warning ms-3"></i> Partly-Billable
+                                    </p>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="col-12 col-md-6 col-lg-3 mb-3 mt-2 mb-md-0 text-center">
+                                    <button type="button" class="btn btn-outline-primary btn-sm mb-md-2 ">
+                                        <i class="bi bi-plus-circle"></i> Add New Lead
+                                    </button>
+                                    <button type="button" class="btn btn-primary btn-sm w-md-auto mb-md-2">
+                                        <i class="bi bi-file-earmark"></i> Add New Project
+                                    </button>
+                                </div>
+
+                                <!-- Grid/List Toggle -->
+                                <div class="col-12 col-md-6 col-lg-1 d-flex justify-content-center mt-0 mt-md-2">
+                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i
+                                                class="bi bi-grid"></i></button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm"><i
+                                                class="bi bi-list-ul"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr class=" mt-4">
+
+                            <!-- project section headlinee -->
+                            <div class="row bg-secondary-subtle mt-3 p-2 fw-bold d-none d-xl-flex    ">
+                                <div class="col-2">Project Name</div>
+                                <div class="col-2">Client Name</div>
+                                <div class="col-2">Client Email-id</div>
+                                <div class="col-2">Start Date-End Date</div>
+                                <div class="col-3">Resources Allocated</div>
+                                <div class="col-1">Action</div>
+                            </div>
+
+
+
+                            <!-- project section items -->
+                            <div class=" m-0 p-0 mt-3 ">
+                                <div class="row ">
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12 my-3 p-3 border-1 border-xl-0">
+                                        <div class="row d-flex align-items-center">
+                                            <div class="col-12 col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/itp.png" alt="" height="47" width="47">
+                                                    </div>
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">In Time PRO</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;">
+                                                            <img src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas Borate
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">contact@waiin.com</div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0"><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i></div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12  my-3 p-3  ">
+                                        <div class="row  d-flex align-items-center">
+                                            <div class="col-12  col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/dekra.png" alt="" height="47" width="47">
+                                                    </div>
+
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">Dekra</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;"><img
+                                                                src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas
+                                                            Borate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                contact@waiin.com
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0 "><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12  my-3 p-3  ">
+                                        <div class="row  d-flex align-items-center">
+                                            <div class="col-12  col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/sn.png" alt="" height="47" width="47">
+                                                    </div>
+
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">SN Logistics</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;"><img
+                                                                src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas
+                                                            Borate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                contact@waiin.com
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0 "><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12  my-3 p-3  ">
+                                        <div class="row  d-flex align-items-center">
+                                            <div class="col-12  col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/dig.png" alt="" height="47" width="47">
+                                                    </div>
+
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">Dig Insights</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;"><img
+                                                                src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas
+                                                            Borate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                contact@waiin.com
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0 "><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12  my-3 p-3  ">
+                                        <div class="row  d-flex align-items-center">
+                                            <div class="col-12  col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/learnsight.png" alt="" height="47" width="47">
+                                                    </div>
+
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">LearnSight</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;"><img
+                                                                src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas
+                                                            Borate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                contact@waiin.com
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0 "><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="card col-12 col-md-6 col-lg-6 col-xl-12  my-3 p-3  ">
+                                        <div class="row  d-flex align-items-center">
+                                            <div class="col-12  col-xl-2">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mt-1">
+                                                        <img src="assets/horizon.png" alt="" height="47" width="47">
+                                                    </div>
+
+                                                    <div class="ms-2">
+                                                        <p class="p-0 m-0 fw-medium">Horizon</p>
+                                                        <span class="p-0 m-0 mt-2" style="font-size: 13px;"><img
+                                                                src="assets/image.png" class="me-1" height="20"
+                                                                width="20" style="border-radius: 50%;">Tejas
+                                                            Borate</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                <div>
+                                                    <img src="assets/wai.png" height="20" width="20"> Wai Technology
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">
+                                                contact@waiin.com
+                                            </div>
+                                            <div class="col-12 col-xl-2 mt-2 mt-xl-0">22 sep,2022 - 23 oct,2022</div>
+                                            <div class="col-12 col-xl-3 mt-2 mt-xl-0">
+
+                                                <div class="progress-stacked" style="height: 10px;width: 90%;">
+                                                    <div class="progress" role="progressbar" aria-label="Segment one"
+                                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 20%">
+                                                        <div class="progress-bar bg-success"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment two"
+                                                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 30%">
+                                                        <div class="progress-bar bg-danger"></div>
+                                                    </div>
+                                                    <div class="progress" role="progressbar" aria-label="Segment three"
+                                                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
+                                                        style="width: 50%">
+                                                        <div class="progress-bar bg-warning"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-xl-1 mt-2 mt-xl-0 "><i
+                                                    class="bi bi-three-dots-vertical fw-bold"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="col-12 d-flex justify-content-end">
+                                    <ul class="pagination">
+                                        <li class="page-item">
+                                            <a class="page-link rounded-circle p-1 px-2" href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link rounded-circle p-1 px-2"
+                                                href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link rounded-circle p-1 px-2"
+                                                href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link rounded-circle p-1 px-2"
+                                                href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link rounded-circle p-1 px-2"
+                                                href="#">4</a></li>
+                                        <li class="page-item disabled">
+                                            <a class="page-link rounded-circle p-1 px-2" href="#">…</a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link rounded-circle  p-1 px-2"
+                                                href="#">9</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link rounded-circle p-1 px-2" href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Offcanvas Sidebar for Mobile -->
+        <div class="offcanvas offcanvas-start bg-light" tabindex="-1" id="mobileSidebar" style="width: 350px;">
+            <div class="mt-2 text-center">
+                <img src="assets/logo.png" alt="Logo" class="" height="50" width="120px"
+                    style="margin-left: -200px !important">
+            </div>
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body" style="margin-left: -18px;">
+                <ul class="nav flex-column px-3">
+                    <li class="nav-item" style="margin-left: -8px;">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-grid-1x2 px-0"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#" id="teamDropdown1">
+                            <i class="bi bi-person me-2"></i> Team Member
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul class="list-unstyled ms-4 collapse" id="teamDropdownMenu1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-person me-2"></i> Team Member
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Certification
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link d-flex align-items-center" href="#" id="project_dropdown1">
+                            <i class="bi bi-person me-2"></i> Project
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul class="list-unstyled ms-4 collapse" id="project_dropdownMenu1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-person me-2"></i> In Progress
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Upcoming
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Completed
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Archived
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-person-badge me-2"></i> Client
+                        </a>
+                    </li>
+                    <li class="nav-item mt-1">
+                        <a class="nav-link d-flex align-items-center" href="#" id="learning_path_dropdown1">
+                            <i class="bi bi-person me-2"></i> Learning Path
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul class="list-unstyled ms-4 collapse" id="learning_path_dropdownMenu1">
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-person me-2"></i> Learning Path
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Cources
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center" href="#">
+                                    <i class="bi bi-award me-2"></i> Skills Sets
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
+
+
+<script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("teamDropdown");
+        const dropdownMenu = document.getElementById("teamDropdownMenu");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("teamDropdown1");
+        const dropdownMenu = document.getElementById("teamDropdownMenu1");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("learning_path_dropdown");
+        const dropdownMenu = document.getElementById("learning_path_dropdownMenu");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("learning_path_dropdown1");
+        const dropdownMenu = document.getElementById("learning_path_dropdownMenu1");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("project_dropdown");
+        const dropdownMenu = document.getElementById("project_dropdownMenu");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const dropdownToggle = document.getElementById("project_dropdown1");
+        const dropdownMenu = document.getElementById("project_dropdownMenu1");
+
+        dropdownToggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle("collapse");
+        });
+    });
+
+</script>
